@@ -304,10 +304,11 @@ p { color: #ccc; font-size: 17px; line-height: 1.6; margin: 8px 0; }
     `;
     function createStars(containerId, className, count, color) {
         const container = document.getElementById(containerId);
+        if(!container) return;
         for (let i = 0; i < count; i++) {
             const star = document.createElement('div');
             star.className = className;
-            const size = Math.random() * 2 + 1 + 'px';
+            const size = (Math.random() * 2 + 1) + 'px';
             star.style.position = 'absolute';
             star.style.top = Math.random() * 100 + '%';
             star.style.left = Math.random() * 100 + '%';
@@ -320,9 +321,10 @@ p { color: #ccc; font-size: 17px; line-height: 1.6; margin: 8px 0; }
             container.appendChild(star);
         }
     }
-    createStars('background', 'stars-drop-big', 700, '#ffffff');
-    createStars('background', 'stars-drop-big2', 200, '#ffffff');
-    createStars('background', 'stars-drop-big3', 100, '#ffffff');
+    // --- CALLS: append stars into the specific child containers we created above ---
+    createStars('stars-drop-big', 'stars-drop-big', 700, '#ffffff');
+    createStars('stars-drop-big2', 'stars-drop-big2', 200, '#ffffff');
+    createStars('stars-drop-big3', 'stars-drop-big3', 100, '#ffffff');
 
     const style = document.createElement('style');
     style.textContent = `
@@ -451,12 +453,11 @@ p { color: #ccc; font-size: 17px; line-height: 1.6; margin: 8px 0; }
                             <div class="download-count" id="count-fix2">Lượt tải: 0</div>
                         </div>
                     </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+        </div> <!-- .container -->
+    </div> <!-- .main-content -->
 
     <script>
         const tabs = document.querySelectorAll('.tab');
@@ -487,5 +488,4 @@ p { color: #ccc; font-size: 17px; line-height: 1.6; margin: 8px 0; }
         });
     </script>
 </body>
-
 </html>
