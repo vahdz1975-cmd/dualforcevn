@@ -1,2 +1,490 @@
-# dualforcevn
-TAO  CŨNG ĐÉO BIẾT NỮA ĐỚP  SOU  CŨNG ĐƯỢC TÙY TAO SHARE  =))) 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Tải File và Liên Hệ</title>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    background-color: #121212;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.video-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 16px 8%;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+.logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+.logo-name {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 900px;
+}
+.tab {
+    padding: 14px 20px;
+    cursor: pointer;
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 120px;
+}
+.tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+.tab.active {
+    background: #305796;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(48, 87, 150, 0.4);
+}
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 20px 40px;
+    overflow-y: auto;
+}
+.container {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+.contact-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.contact-logo .logo-img {
+    width: 80px;
+    height: 80px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.contact-logo .logo-name {
+    font-size: 28px;
+}
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+.tab-content.active { display: block; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.download-section { margin: 30px 0 50px; }
+.button {
+    display: inline-block;
+    padding: 16px 40px;
+    font-size: 19px;
+    font-weight: 600;
+    color: #fff;
+    background: #305796;
+    border: none;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(48, 87, 150, 0.3);
+    margin: 20px 0;
+}
+.button:hover {
+    background: #3a6bc7;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(48, 87, 150, 0.5);
+}
+.download-count {
+    color: #aaa;
+    font-size: 15px;
+    margin-top: 8px;
+    font-weight: 500;
+}
+.price-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    border-collapse: collapse;
+    background: rgba(40, 40, 40, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+.price-table th {
+    background: #305796;
+    color: #fff;
+    padding: 16px;
+    font-weight: 600;
+    font-size: 18px;
+}
+.price-table td {
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 16px;
+}
+.price-table tr:last-child td { border-bottom: none; }
+.price-table tr:hover { background: rgba(255, 255, 255, 0.05); }
+h1 {
+    font-size: 34px;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+h2 { font-size: 26px; margin: 30px 0 15px; color: #fff; }
+p { color: #ccc; font-size: 17px; line-height: 1.6; margin: 8px 0; }
+.contact-section p { margin: 14px 0; font-size: 18px; }
+.contact-section strong { color: #305796; }
+
+/* FIX HERE TAB STYLES */
+.tab-content.fix-here .download-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 20px 0;
+}
+.tab-content.fix-here .file-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: rgba(50, 50, 50, 0.8);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.tab-content.fix-here .file-row:hover {
+    background: rgba(60, 60, 60, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+.tab-content.fix-here .file-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    flex: 1;
+    text-align: left;
+}
+.tab-content.fix-here .file-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+.tab-content.fix-here .file-actions .button {
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.tab-content.fix-here .file-actions .download-count {
+    font-size: 14px;
+    color: #aaa;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header { padding: 12px 5%; }
+    .header-content { flex-direction: column; gap: 12px; }
+    .logo-img { width: 40px; height: 40px; }
+    .logo-name { font-size: 20px; }
+    .tabs { flex-direction: column; gap: 6px; }
+    .tab { padding: 12px; font-size: 15px; min-width: auto; }
+    .main-content { padding: 160px 15px 30px; }
+    .container { padding: 25px; }
+    .contact-logo .logo-img { width: 60px; height: 60px; }
+    .contact-logo .logo-name { font-size: 24px; }
+    h1 { font-size: 28px; }
+    .button { padding: 12px 28px; font-size: 16px; }
+    .tab-content.fix-here .file-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+    }
+    .tab-content.fix-here .file-title {
+        text-align: center;
+        font-size: 17px;
+    }
+    .tab-content.fix-here .file-actions {
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+    }
+    .tab-content.fix-here .file-actions .download-count {
+        text-align: center;
+        width: auto;
+    }
+}
+    </style>
+</head>
+<body>
+    
+<div id="background" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-3;background:#000;"></div>
+<script>
+    const background = document.getElementById('background');
+    background.innerHTML = `
+        <div class="stars-drop" id="stars-drop-big"></div>
+        <div class="stars-drop2" id="stars-drop-big2"></div>
+        <div class="stars-drop3" id="stars-drop-big3"></div>
+    `;
+    function createStars(containerId, className, count, color) {
+        const container = document.getElementById(containerId);
+        for (let i = 0; i < count; i++) {
+            const star = document.createElement('div');
+            star.className = className;
+            const size = Math.random() * 2 + 1 + 'px';
+            star.style.position = 'absolute';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.background = color;
+            star.style.borderRadius = '50%';
+            star.style.opacity = Math.random();
+            star.style.animation = `twinkle ${2 + Math.random() * 3}s infinite alternate`;
+            container.appendChild(star);
+        }
+    }
+    createStars('background', 'stars-drop-big', 700, '#ffffff');
+    createStars('background', 'stars-drop-big2', 200, '#ffffff');
+    createStars('background', 'stars-drop-big3', 100, '#ffffff');
+
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes twinkle {
+            from { opacity: 0.2; transform: translateY(0px); }
+            to { opacity: 1; transform: translateY(2px); }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+
+<div class="overlay"></div>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://i.ibb.co/whJ74kT2/logo.jpg" alt="Logo" class="logo-img">
+                <div class="logo-name">DUALFORCE VN</div>
+            </div>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab(0)">AIMBOT</button>
+                <button class="tab" onclick="showTab(1)">BASIC</button>
+                <button class="tab" onclick="showTab(2)">SILENT</button>
+                <button class="tab" onclick="showTab(3)">LIÊN HỆ</button>
+                <button class="tab" onclick="showTab(4)">FIX HERE</button>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <!-- AIMBOT TAB -->
+            <div class="tab-content active">
+                <div class="download-section">
+                    <h1>DOWNLOADS</h1>
+                    <p>Nhấn nút bên dưới để tải file chất lượng cao.</p>
+                    <a href="https://files.catbox.moe/slvd5u.rar" class="button" target="_blank" onclick="incrementDownload('file1')">
+                        DOWNLOADS AIMBOT
+                    </a>
+                    <p><strong>DOWNLOADS:</strong> AIMBOT DOWNLOADS</p>
+                    <div class="download-count" id="count-file1">Lượt tải: 0</div>
+                </div>
+                <h2>Bảng Giá</h2>
+                <table class="price-table">
+                    <thead><tr><th>AIMBOT</th><th>Giá</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 DAYS</td><td>20.000 VND</td></tr>
+                        <tr><td>1 WEEK</td><td>50.000 VND</td></tr>
+                        <tr><td>30 DAYS</td><td>100.000 VND</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- BASIC TAB -->
+            <div class="tab-content">
+                <div class="download-section">
+                    <h1>BASIC</h1>
+                    <p>Nhấn nút bên dưới để tải file nâng cao.</p>
+                    <a href="https://example.com/file2.zip" class="button" target="_blank" onclick="incrementDownload('file2')">
+                        Tải File 2
+                    </a>
+                    <p><strong>DOWNLOADS:</strong> UPDATE SOON...</p>
+                    <div class="download-count" id="count-file2">Lượt tải: 0</div>
+                </div>
+                <h2>Bảng Giá</h2>
+                <table class="price-table">
+                    <thead><tr><th>Loại File</th><th>Giá</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 DAY</td><td>XXX VND</td></tr>
+                        <tr><td>XXX</td><td>XXX VND</td></tr>
+                        <tr><td>XXX</td><td>XXX VND</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SILENT TAB -->
+            <div class="tab-content">
+                <div class="download-section">
+                    <h1>DOWNLOADS</h1>
+                    <p>Nhấn nút bên dưới để tải file phiên bản mới nhất.</p>
+                    <a href="https://files.catbox.moe/27j0ne.rar" class="button" target="_blank" onclick="incrementDownload('file3')">
+                        DOWNLOADS SIENT
+                    </a>
+                    <p><strong>DOWNLOADS:</strong> SILENT</p>
+                    <div class="download-count" id="count-file3">Lượt tải: 0</div>
+                </div>
+                <h2>Bảng Giá</h2>
+                <table class="price-table">
+                    <thead><tr><th>Loại File</th><th>Giá</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 DAY</td><td>15.000 VND</td></tr>
+                        <tr><td>3 DAY</td><td>30.000 VND</td></tr>
+                        <tr><td>1 WEEK</td><td>50.000 VND</td></tr>
+                        <tr><td>30 DAY</td><td>150.000 VND</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- LIÊN HỆ TAB -->
+            <div class="tab-content">
+                <div class="contact-logo">
+                    <img src="https://i.ibb.co/whJ74kT2/logo.jpg" alt="Logo" class="logo-img">
+                    <div class="logo-name">DUALFORCEVN</div>
+                </div>
+                <div class="contact-section">
+                    <h2>Liên Hệ Hỗ Trợ</h2>
+                    <p>CHÚNG TÔI SẴN SÀNG HỖ TRỢ KHI RẢNH =)))))</p>
+                    <p><strong>YOUTUBE:</strong> <a href="https://www.youtube.com/@dualforcevn" style="color:#305796">DUALFORCE VN</a></p>
+                    <p><strong>DISCORD:</strong> <a href="https://discord.gg/avSSrGgqbZ" style="color:#305796">DISCORD DUALFORCE VN</a></p>
+                </div>
+            </div>
+
+            <!-- FIX HERE TAB -->
+            <div class="tab-content fix-here">
+                <h1>FIX HERE</h1>
+                <div class="download-section">
+                    <div class="file-row">
+                        <div class="file-title">FIX LỖI INJECTOR TRÊN GIẢ LẬP</div>
+                        <div class="file-actions">
+                            <a href="https://files.catbox.moe/d7f1ye.rar" class="button" target="_blank" onclick="incrementDownload('fix1')">DOWNLOAD</a>
+                            <div class="download-count" id="count-fix1">Lượt tải: 0</div>
+                        </div>
+                    </div>
+                    <div class="file-row">
+                        <div class="file-title">UPDATE SOON...</div>
+                        <div class="file-actions">
+                            <a href="https://example.com/fix2.zip" class="button" target="_blank" onclick="incrementDownload('fix2')">DOWNLOAD</a>
+                            <div class="download-count" id="count-fix2">Lượt tải: 0</div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+        
+        function showTab(index) {
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            tabs[index].classList.add('active');
+            contents[index].classList.add('active');
+        }
+
+        function incrementDownload(key) {
+            let count = parseInt(localStorage.getItem(key)) || 0;
+            count++;
+            localStorage.setItem(key, count);
+            const el = document.getElementById('count-' + key);
+            if(el) el.textContent = `Lượt tải: ${count}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const keys = ['file1','file2','file3','fix1','fix2','fix3','fix4','fix5'];
+            keys.forEach(key => {
+                const count = parseInt(localStorage.getItem(key)) || 0;
+                const el = document.getElementById('count-' + key);
+                if(el) el.textContent = `Lượt tải: ${count}`;
+            });
+        });
+    </script>
+</body>
+</html>
