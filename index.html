@@ -3,391 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HnTech</title>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Trang Tải File và Liên Hệ</title>
     <style>
-        :root {
-            --background: #0d1117; --surface: #161b22; --surface-light: #21262d;
-            --primary: #00aaff; --text: #c9d1d9; --text-secondary: #8b949e;
-            --border: #30363d; --green: #28a745; --red: #cf6679;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Be Vietnam Pro', sans-serif; 
-            background-color: var(--background); 
-            color: var(--text); 
-            margin: 0; 
-            padding: 0; 
-            overflow-x: hidden; 
-            position: relative; 
-            min-height: 100vh; 
-        }
-        .star { 
-            position: fixed; 
-            width: 2px; height: 2px; 
-            background: #fff; 
-            border-radius: 50%; 
-            opacity: 0.7; 
-            animation: fall linear infinite; 
-            z-index: -1; 
-            top: -10px; 
-        }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        
-        /* Header */
-        .header { 
-            padding: 15px 0; 
-            background-color: rgba(13, 17, 23, 0.8); 
-            backdrop-filter: blur(5px); 
-            border-bottom: 1px solid var(--border); 
-            position: sticky; top: 0; z-index: 100; 
-        }
-        .header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; }
-        .logo span { font-size: 0.8rem; color: var(--text-secondary); display: block; font-weight: 300; margin-top: -5px; }
-        .user-info { text-align: right; font-size: 0.9rem; }
-        .user-info .time { color: var(--text-secondary); }
-        .user-info .email { color: var(--text); font-weight: 500; }
-        .user-info .name { color: var(--text-secondary); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    background-color: #121212;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.video-background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 16px 8%;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+.logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+.logo-name {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 900px;
+}
+.tab {
+    padding: 14px 20px;
+    cursor: pointer;
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 120px;
+}
+.tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+.tab.active {
+    background: #305796;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(48, 87, 150, 0.4);
+}
+.main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 20px 40px;
+    overflow-y: auto;
+}
+.container {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+.contact-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.contact-logo .logo-img {
+    width: 80px;
+    height: 80px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.contact-logo .logo-name {
+    font-size: 28px;
+}
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+.tab-content.active { display: block; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.download-section { margin: 30px 0 50px; }
+.button {
+    display: inline-block;
+    padding: 16px 40px;
+    font-size: 19px;
+    font-weight: 600;
+    color: #fff;
+    background: #305796;
+    border: none;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(48, 87, 150, 0.3);
+    margin: 20px 0;
+}
+.button:hover {
+    background: #3a6bc7;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(48, 87, 150, 0.5);
+}
+.download-count {
+    color: #aaa;
+    font-size: 15px;
+    margin-top: 8px;
+    font-weight: 500;
+}
+.price-table {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    border-collapse: collapse;
+    background: rgba(40, 40, 40, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+.price-table th {
+    background: #305796;
+    color: #fff;
+    padding: 16px;
+    font-weight: 600;
+    font-size: 18px;
+}
+.price-table td {
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 16px;
+}
+.price-table tr:last-child td { border-bottom: none; }
+.price-table tr:hover { background: rgba(255, 255, 255, 0.05); }
+h1 {
+    font-size: 34px;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+h2 { font-size: 26px; margin: 30px 0 15px; color: #fff; }
+p { color: #ccc; font-size: 17px; line-height: 1.6; margin: 8px 0; }
+.contact-section p { margin: 14px 0; font-size: 18px; }
+.contact-section strong { color: #305796; }
 
-        /* Navigation */
-        .nav { 
-            background-color: var(--surface); 
-            padding: 10px 0; 
-            border-bottom: 1px solid var(--border); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
-        }
-        .nav .container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        .nav-item { 
-            text-decoration: none; color: var(--text-secondary); 
-            background-color: var(--surface-light); padding: 10px 25px; 
-            border-radius: 8px; font-weight: 500; transition: all 0.3s ease; 
-            border: 1px solid var(--border); 
-        }
-        .nav-item:hover { color: #fff; background-color: #30363d; }
-        .nav-item.active { color: #fff; background-color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 170, 255, 0.4); }
+/* FIX HERE TAB STYLES */
+.tab-content.fix-here .download-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 20px 0;
+}
+.tab-content.fix-here .file-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: rgba(50, 50, 50, 0.8);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.tab-content.fix-here .file-row:hover {
+    background: rgba(60, 60, 60, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+.tab-content.fix-here .file-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    flex: 1;
+    text-align: left;
+}
+.tab-content.fix-here .file-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+.tab-content.fix-here .file-actions .button {
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.tab-content.fix-here .file-actions .download-count {
+    font-size: 14px;
+    color: #aaa;
+    min-width: 80px;
+    text-align: right;
+}
 
-        /* Main Content */
-        .main-content { padding: 30px 0; }
-        .product-box { 
-            background-color: var(--surface); border-radius: 12px; 
-            border: 1px solid var(--border); padding: 30px; 
-            margin-bottom: 25px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
-        }
-        .product-title { font-size: 2.5rem; font-weight: 700; color: #fff; margin: 0 0 5px 0; }
-        .product-description { font-size: 1.1rem; color: var(--text-secondary); }
-        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        .details-box { 
-            background-color: var(--surface-light); border-radius: 10px; 
-            padding: 25px; border: 1px solid var(--border); min-height: 250px; 
-        }
-        .details-box h3 { 
-            font-size: 1.5rem; color: var(--primary); margin-top: 0; 
-            margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; 
-        }
-        .features-list { list-style: none; padding: 0; }
-        .features-list li { 
-            color: var(--text); margin-bottom: 12px; display: flex; 
-            align-items: center; font-weight: 500; 
-        }
-        .features-list li::before { 
-            content: '•'; color: var(--primary); font-weight: 700; 
-            font-size: 1.5rem; margin-right: 10px; line-height: 1; 
-        }
-        .pricing-table { width: 100%; border-collapse: collapse; }
-        .pricing-table th, .pricing-table td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border); }
-        .pricing-table th { color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; }
-        .price-name { font-weight: 500; color: var(--text); }
-        .price-tag { 
-            font-weight: 700; color: #fff; background-color: var(--primary); 
-            padding: 5px 12px; border-radius: 6px; font-size: 1rem; 
-        }
-        .price-tag.free { background-color: var(--green); }
-
-        /* Download Section */
-        .download-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
-        .download-section h4 { margin-top: 0; margin-bottom: 15px; color: var(--text); }
-        .download-links-container { display: flex; flex-direction: column; gap: 10px; }
-        .download-btn, .contact-btn-small { 
-            display: block; text-decoration: none; background-color: var(--primary); 
-            color: #fff; padding: 12px 15px; border-radius: 6px; 
-            font-weight: 600; font-size: 1rem; text-align: center; 
-            transition: all 0.3s; cursor: pointer; 
-        }
-        .download-btn:hover { background-color: #0088cc; transform: translateY(-2px); }
-        .contact-btn-small { background-color: var(--green); }
-        .contact-btn-small:hover { background-color: #2b9a40; }
-
-        /* Contact Box */
-        .contact-box { text-align: center; }
-        .contact-box p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px; }
-        .btn-contact { 
-            text-decoration: none; background-color: var(--primary); 
-            color: #fff; padding: 14px 40px; border-radius: 8px; 
-            font-weight: 700; font-size: 1.1rem; display: inline-block; 
-            transition: all 0.3s ease; 
-        }
-        .btn-contact:hover { 
-            background-color: #0088cc; transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(0, 170, 255, 0.3); 
-        }
-
-        /* Footer */
-        .footer { 
-            text-align: center; padding: 30px 20px; 
-            border-top: 1px solid var(--border); 
-            background-color: var(--surface); color: var(--text-secondary); 
-            font-size: 0.9rem; margin-top: 40px; 
-        }
-        .footer p { margin: 5px 0; }
-        .footer a { color: var(--primary); text-decoration: none; }
-        .footer a:hover { text-decoration: underline; }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
-            z-index: 1000; display: none; align-items: center; justify-content: center;
-        }
-        .modal-box {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 12px; padding: 30px; max-width: 500px;
-            width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            position: relative; animation: modal-fade-in 0.3s ease-out;
-        }
-        @keyframes modal-fade-in {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .modal-close-x {
-            position: absolute; top: 10px; right: 10px;
-            background: var(--surface-light); color: var(--text);
-            border: 1px solid var(--border); border-radius: 50%;
-            width: 30px; height: 30px; font-size: 1rem;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .modal-close-x:hover { background: var(--border); color: #fff; }
-        .modal-content img { max-width: 100%; border-radius: 8px; margin-bottom: 15px; }
-        .modal-content .modal-text {
-            font-size: 1rem; color: var(--text);
-            line-height: 1.6; max-height: 300px; overflow-y: auto;
-        }
-        .modal-actions { margin-top: 25px; display: flex; gap: 10px; justify-content: flex-end; }
-        .modal-btn { 
-            padding: 10px 20px; border: none; border-radius: 6px; 
-            font-weight: 600; cursor: pointer; transition: all 0.3s; 
-            text-decoration: none; font-size: 0.9rem;
-        }
-        .modal-btn.dismiss { background-color: var(--surface-light); color: var(--text); border: 1px solid var(--border); }
-        .modal-btn.dismiss:hover { background-color: var(--border); }
-        .modal-btn.confirm { background-color: var(--primary); color: #fff; }
-        .modal-btn.confirm:hover { background-color: #0088cc; }
-        .modal-btn.cancel { background-color: var(--red); color: #fff; }
-        .modal-btn.cancel:hover { background-color: #b04f5f; }
-        .modal-note { color: var(--primary); font-size: 0.9rem; text-align: center; margin-top: 15px; font-style: italic; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .details-grid { grid-template-columns: 1fr; }
-            .header .container { flex-direction: column; gap: 10px; }
-            .user-info { text-align: center; }
-            .nav .container { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding: 0 20px 10px 20px; }
-            .product-title { font-size: 2rem; }
-            .details-box { min-height: auto; }
-        }
+/* Responsive */
+@media (max-width: 768px) {
+    .header { padding: 12px 5%; }
+    .header-content { flex-direction: column; gap: 12px; }
+    .logo-img { width: 40px; height: 40px; }
+    .logo-name { font-size: 20px; }
+    .tabs { flex-direction: column; gap: 6px; }
+    .tab { padding: 12px; font-size: 15px; min-width: auto; }
+    .main-content { padding: 160px 15px 30px; }
+    .container { padding: 25px; }
+    .contact-logo .logo-img { width: 60px; height: 60px; }
+    .contact-logo .logo-name { font-size: 24px; }
+    h1 { font-size: 28px; }
+    .button { padding: 12px 28px; font-size: 16px; }
+    .tab-content.fix-here .file-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+    }
+    .tab-content.fix-here .file-title {
+        text-align: center;
+        font-size: 17px;
+    }
+    .tab-content.fix-here .file-actions {
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+    }
+    .tab-content.fix-here .file-actions .download-count {
+        text-align: center;
+        width: auto;
+    }
+}
     </style>
 </head>
 <body>
-    <!-- Background Music -->
-    <audio id="bg-music" src="https://files.catbox.moe/q8qx1u.mp3" loop autoplay></audio>
-
-    <!-- Falling Stars -->
-    <script>
-        for(let i = 0; i < 80; i++) {
+    
+<div id="background" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-3;background:#000;"></div>
+<script>
+    const background = document.getElementById('background');
+    background.innerHTML = `
+        <div class="stars-drop" id="stars-drop-big"></div>
+        <div class="stars-drop2" id="stars-drop-big2"></div>
+        <div class="stars-drop3" id="stars-drop-big3"></div>
+    `;
+    function createStars(containerId, className, count, color) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+        for (let i = 0; i < count; i++) {
             const star = document.createElement('div');
-            star.className = 'star';
+            star.className = className;
+            const size = (Math.random() * 2 + 1) + 'px';
+            star.style.position = 'absolute';
+            star.style.top = Math.random() * 100 + '%';
             star.style.left = Math.random() * 100 + '%';
-            star.style.animationDuration = (Math.random() * 7 + 8) + 's';
-            star.style.animationDelay = Math.random() * 10 + 's';
-            document.body.appendChild(star);
+            star.style.width = size;
+            star.style.height = size;
+            star.style.background = color;
+            star.style.borderRadius = '50%';
+            star.style.opacity = Math.random();
+            star.style.animation = `twinkle ${2 + Math.random() * 3}s infinite alternate`;
+            container.appendChild(star);
         }
-    </script>
+    }
+    // --- CALLS: append stars into the specific child containers we created above ---
+    createStars('stars-drop-big', 'stars-drop-big', 700, '#ffffff');
+    createStars('stars-drop-big2', 'stars-drop-big2', 200, '#ffffff');
+    createStars('stars-drop-big3', 'stars-drop-big3', 100, '#ffffff');
 
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <a href="#" class="logo">
-                HnTech
-                <span>Công nghệ gaming tiên tiến</span>
-            </a>
-            <div class="user-info">
-                <div class="time" id="time-display">...</div>
-                <div class="email">hieu2972009@gmail.com</div>
-                <div class="name">Trung Hiếu Nguyễn</div>
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes twinkle {
+            from { opacity: 0.2; transform: translateY(0px); }
+            to { opacity: 1; transform: translateY(2px); }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+
+<div class="overlay"></div>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://i.ibb.co/whJ74kT2/logo.jpg" alt="Logo" class="logo-img">
+                <div class="logo-name">DUALFORCE VN</div>
+            </div>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab(0)">AIMBOT</button>
+                <button class="tab" onclick="showTab(1)">BASIC</button>
+                <button class="tab" onclick="showTab(2)">SILENT</button>
+                <button class="tab" onclick="showTab(3)">LIÊN HỆ</button>
+                <button class="tab" onclick="showTab(4)">FIX HERE</button>
             </div>
         </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="nav">
+    </div>
+    <div class="main-content">
         <div class="container">
-            <a href="#" class="nav-item active">Aimbot</a>
-            <a href="#" class="nav-item">Anticheat</a>
-            <a href="#" class="nav-item">Bypass</a>
-            <a href="#" class="nav-item">Fixlag</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Product Title -->
-            <div class="product-box">
-                <h1 class="product-title">Aimbot (Safe)</h1>
-                <p class="product-description">Dịch vụ aimbot an toàn, hiệu quả, leo rank nhanh chóng.</p>
-            </div>
-
-            <!-- Features & Pricing -->
-            <div class="details-grid">
-                <!-- Features -->
-                <div class="details-box">
-                    <h3>Tính Năng</h3>
-                    <ul class="features-list">
-                        <li>Aimbot chính xác</li>
-                        <li>ESP chuyên nghiệp</li>
-                        <li>An toàn, chống ban</li>
-                        <li>Hỗ trợ mọi vũ khí</li>
-                    </ul>
+            <!-- AIMBOT TAB -->
+            <div class="tab-content active">
+                <div class="download-section">
+                    <h1>DOWNLOADS</h1>
+                    <p>Nhấn nút bên dưới để tải file chất lượng cao.</p>
+                    <a href="https://files.catbox.moe/2gcqx4.rar" class="button" target="_blank" onclick="incrementDownload('file1')">
+                        DOWNLOADS AIMBOT
+                    </a>
+                    <p><strong>DOWNLOADS:</strong> AIMBOT DOWNLOADS</p>
+                    <div class="download-count" id="count-file1">Lượt tải: 0</div>
                 </div>
+                <h2>Bảng Giá</h2>
+                <table class="price-table">
+                    <thead><tr><th>AIMBOT</th><th>Giá</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 DAYS</td><td>20.000 VND</td></tr>
+                        <tr><td>1 WEEK</td><td>50.000 VND</td></tr>
+                        <tr><td>30 DAYS</td><td>100.000 VND</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <!-- Pricing & Download -->
-                <div class="details-box">
-                    <h3>Bảng Giá & Tải Về</h3>
-                    <table class="pricing-table">
-                        <thead>
-                            <tr>
-                                <th>Gói</th>
-                                <th>Giá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="price-name">Gói 1 ngày</td>
-                                <td><span class="price-tag">25.000 VND</span></td>
-                            </tr>
-                            <tr>
-                                <td class="price-name">Gói 7 ngày</td>
-                                <td><span class="price-tag">120.000 VND</span></td>
-                            </tr>
-                            <tr>
-                                <td class="price-name">Gói 30 ngày</td>
-                                <td><span class="price-tag">350.000 VND</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- BASIC TAB -->
+            <div class="tab-content">
+                <div class="download-section">
+                    <h1>BASIC</h1>
+                    <p>Nhấn nút bên dưới để tải file nâng cao.</p>
+                    <a href="https://example.com/file2.zip" class="button" target="_blank" onclick="incrementDownload('file2')">
+                        Tải File 2
+                    </a>
+                    <p><strong>DOWNLOADS:</strong> UPDATE SOON...</p>
+                    <div class="download-count" id="count-file2">Lượt tải: 0</div>
+                </div>
+                <h2>Bảng Giá</h2>
+                <table class="price-table">
+                    <thead><tr><th>Loại File</th><th>Giá</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 DAY</td><td>XXX VND</td></tr>
+                        <tr><td>XXX</td><td>XXX VND</td></tr>
+                        <tr><td>XXX</td><td>XXX VND</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-                    <div class="download-section">
-                        <h4>Files Tải Về</h4>
-                        <div class="download-links-container">
-                            <a href="#" class="download-btn download-trigger" data-href="uploads/aimbot_safe/file1.exe" data-product-name="Aimbot (Safe)">
-                                Tải xuống file 1
-                            </a>
-                            <a href="https://t.me/Thunguyet2404" class="contact-btn-small" target="_blank">Liên Hệ Để Tải</a>
+            <!-- SILENT TAB -->
+            <div class="tab-content">
+                <div class="download-section">
+                    <h1>DOWNLOADS</h1>
+                    <p>Nhấn nút bên dưới để tải file phiên bản mới nhất.</p>
+                    <a href="https://files.catbox.moe/27j0ne.rar" class="button" target="_blank" onclick="incrementDownload('file3')">
+                        DOWNLOADS SIENT
+                    </a>
+                    <p><strong>DOWNLOADS:</strong> SILENT</p>
+                    <div class="download-count" id="count-file3">Lượt tải: 0</div>
+                </div>
+                <h2>Bảng Giá</h2>
+                <table class="price-table">
+                    <thead><tr><th>Loại File</th><th>Giá</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 DAY</td><td>15.000 VND</td></tr>
+                        <tr><td>3 DAY</td><td>30.000 VND</td></tr>
+                        <tr><td>1 WEEK</td><td>50.000 VND</td></tr>
+                        <tr><td>30 DAY</td><td>150.000 VND</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- LIÊN HỆ TAB -->
+            <div class="tab-content">
+                <div class="contact-logo">
+                    <img src="https://i.ibb.co/whJ74kT2/logo.jpg" alt="Logo" class="logo-img">
+                    <div class="logo-name">DUALFORCEVN</div>
+                </div>
+                <div class="contact-section">
+                    <h2>Liên Hệ Hỗ Trợ</h2>
+                    <p>CHÚNG TÔI SẴN SÀNG HỖ TRỢ KHI RẢNH =)))))</p>
+                    <p><strong>YOUTUBE:</strong> <a href="https://www.youtube.com/@dualforcevn" style="color:#305796">DUALFORCE VN</a></p>
+                    <p><strong>DISCORD:</strong> <a href="https://discord.gg/avSSrGgqbZ" style="color:#305796">DISCORD DUALFORCE VN</a></p>
+                </div>
+            </div>
+
+            <!-- FIX HERE TAB -->
+            <div class="tab-content fix-here">
+                <h1>FIX HERE</h1>
+                <div class="download-section">
+                    <div class="file-row">
+                        <div class="file-title">FIX LỖI INJECTOR TRÊN GIẢ LẬP</div>
+                        <div class="file-actions">
+                            <a href="https://files.catbox.moe/d7f1ye.rar" class="button" target="_blank" onclick="incrementDownload('fix1')">DOWNLOAD</a>
+                            <div class="download-count" id="count-fix1">Lượt tải: 0</div>
+                        </div>
+                    </div>
+                    <div class="file-row">
+                        <div class="file-title">UPDATE SOON...</div>
+                        <div class="file-actions">
+                            <a href="https://example.com/fix2.zip" class="button" target="_blank" onclick="incrementDownload('fix2')">DOWNLOAD</a>
+                            <div class="download-count" id="count-fix2">Lượt tải: 0</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact -->
-            <div class="product-box contact-box" style="margin-top: 25px;">
-                <p>Liên hệ để tải về và nhận hỗ trợ</p>
-                <a href="https://t.me/Thunguyet2404" class="btn-contact" target="_blank">Liên Hệ Ngay</a>
-            </div>
-        </div>
-    </main>
+        </div> <!-- .container -->
+    </div> <!-- .main-content -->
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2025 HnTech. All rights reserved.</p>
-        <p>Contact: <a href="mailto:hieu2972009@gmail.com">hieu2972009@gmail.com</a> | <a href="#">Admin Panel</a></p>
-        <p style="color: #444; font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">Activate Windows - Go to Settings to activate Windows.</p>
-    </footer>
-
-    <!-- Download Confirmation Modal -->
-    <div id="modal-overlay-download" class="modal-overlay">
-        <div class="modal-box">
-            <h3 style="color: var(--primary); margin-top:0;">Xác nhận tải xuống</h3>
-            <div class="modal-content">
-                <p>Bạn có chắc chắn muốn tải:<br>
-                    <strong id="download-product-name" style="color: var(--text); font-size: 1.1rem;"></strong>
-                </p>
-                <p class="modal-note">Làm vì mục đích giáo dục</p>
-            </div>
-            <div class="modal-actions">
-                <button id="modal-btn-cancel" class="modal-btn cancel">Hủy bỏ</button>
-                <a href="#" id="modal-btn-confirm" class="modal-btn confirm" download>Tải xuống</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
     <script>
-        // Update Time
-        function updateTime() {
-            const now = new Date();
-            const options = { 
-                year: 'numeric', month: '2-digit', day: '2-digit', 
-                hour: '2-digit', minute: '2-digit', second: '2-digit', 
-                hour12: false, timeZone: 'Asia/Ho_Chi_Minh' 
-            };
-            const formatter = new Intl.DateTimeFormat('en-GB', options);
-            const parts = formatter.formatToParts(now);
-            let dateParts = {};
-            parts.forEach(part => dateParts[part.type] = part.value);
-            const timeString = `${dateParts.hour}:${dateParts.minute}:${dateParts.second}`;
-            const dateString = `${dateParts.day}/${dateParts.month}/${dateParts.year}`;
-            document.getElementById('time-display').innerText = `${timeString} - ${dateString}`;
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+        
+        function showTab(index) {
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            tabs[index].classList.add('active');
+            contents[index].classList.add('active');
         }
-        updateTime();
-        setInterval(updateTime, 1000);
 
-        // Background Music
+        function incrementDownload(key) {
+            let count = parseInt(localStorage.getItem(key)) || 0;
+            count++;
+            localStorage.setItem(key, count);
+            const el = document.getElementById('count-' + key);
+            if(el) el.textContent = `Lượt tải: ${count}`;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            const music = document.getElementById('bg-music');
-            if (music) {
-                const savedTime = localStorage.getItem('bgMusicTime');
-                if (savedTime) music.currentTime = parseFloat(savedTime);
-                music.play().catch(() => {
-                    document.body.addEventListener('click', () => music.play(), { once: true });
-                });
-                window.addEventListener('beforeunload', () => {
-                    localStorage.setItem('bgMusicTime', music.currentTime);
-                });
-            }
-
-            // Download Modal
-            const dlOverlay = document.getElementById('modal-overlay-download');
-            const dlTriggers = document.querySelectorAll('.download-trigger');
-            const dlConfirmBtn = document.getElementById('modal-btn-confirm');
-            const dlCancelBtn = document.getElementById('modal-btn-cancel');
-
-            dlTriggers.forEach(trigger => {
-                trigger.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const filePath = trigger.getAttribute('data-href');
-                    const productName = trigger.getAttribute('data-product-name');
-                    dlConfirmBtn.href = filePath;
-                    document.getElementById('download-product-name').innerText = productName;
-                    dlOverlay.style.display = 'flex';
-                });
+            const keys = ['file1','file2','file3','fix1','fix2','fix3','fix4','fix5'];
+            keys.forEach(key => {
+                const count = parseInt(localStorage.getItem(key)) || 0;
+                const el = document.getElementById('count-' + key);
+                if(el) el.textContent = `Lượt tải: ${count}`;
             });
-
-            dlCancelBtn.addEventListener('click', () => dlOverlay.style.display = 'none');
-            dlOverlay.addEventListener('click', (e) => { if (e.target === dlOverlay) dlOverlay.style.display = 'none'; });
-            dlConfirmBtn.addEventListener('click', () => dlOverlay.style.display = 'none');
         });
     </script>
 </body>
 </html>
+
+
